@@ -15,17 +15,17 @@
 	<hr><button id="click" >something something</button>
 	
 	<script>
-	// var API_KEY = "47a50d91ea87883452d5dbf31851512f";
-	// 	var call = document.getElementById('title');
-	// 	var button = document.getElementById('click');
+	var API_KEY = "47a50d91ea87883452d5dbf31851512f";
+		var call = document.getElementById('title');
+		var button = document.getElementById('click');
 
-	// 	button.addEventListener('click', function() {
-	// 			 getWeather(call.value);
+		button.addEventListener('click', function() {
+				 getWeather(call.value);
 
-	// });
-	function thisIsNotTheDroidsYouAreLookingFor(){
+	});
+	function WheaterFind(city){
 		$.ajax({
-				// url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric",
+				url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric",
 
 				url: "http://swapi.co/api/"
 
@@ -38,6 +38,7 @@
 		 	});
 
 		 };
+	}
 	</script>	
 </body>
 </html>
