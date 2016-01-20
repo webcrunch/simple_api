@@ -23,11 +23,11 @@
 				 getWeather(call.value);
 
 	});
-	function WheaterFind(city){
+	function getWeather(city){
 		$.ajax({
 				url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY + "&units=metric",
 
-				url: "http://swapi.co/api/"
+				// url: "http://swapi.co/api/"
 
 
 			})
@@ -38,7 +38,7 @@
 		 	});
 
 		 };
-	}
+	
 	</script>	
 </body>
 </html>

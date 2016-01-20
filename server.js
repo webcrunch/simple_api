@@ -3,13 +3,6 @@ var app = express();
 app.use(express.static('public'));
 
 
-app.get('/spotify', function(req,res){
-
- 	res.sendFile('../default.html', { root: __dirname });
-});
-
-
-
 var server = app.listen(3000, function() {
 	var port = server.address().port;
 	
