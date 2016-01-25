@@ -10,16 +10,29 @@
 	<script src="js/script.js"></script>
 </head>
 <body>
-	<h1>Chatt</h1>
+	 <h1>Chatt</h1>
 	<input id="title">
 	<hr><button id="click" >say soemthing</button>
 	<div id="result">
 	</div>
 
-	<div id="chattresult">
+<script id="entry-template" type="text/x-handlebars-template">
+	<div class="entry">
+		<h1>{{title}}</h1>
+		<div class="body">
+			{{body}}
+		</div>
 	</div>
-	<script>
+</script>
 
-	</script>
+<script>
+var source   = $("#entry-template").html();
+var template = Handlebars.compile(source);
+var context = {title: "My New Post", body: "This is my first post!"};
+var html    = template(context);
+var second  = template(data);
+result.innerHTML = html;
+
+</script>
 </body>
 </html>
