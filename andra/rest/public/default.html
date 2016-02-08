@@ -1,0 +1,187 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ajax</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+	<script src="jquery.min.js"></script>
+	<script src="handlebars-v4.0.5.js"></script>
+	<!-- <link rel="stylesheet" href=""> -->
+
+	<style>
+		body{
+			height: 600px;
+			width: 900px;
+			background: #7B7A7A;
+		}
+
+		.persons{
+			border:2px solid black;
+			box-shadow: -6px -9px 1px #000000; 
+			margin: 20px;
+			background: #2FF25D;
+			padding: 10px;
+			font-size: 20px;
+			font-weight: bold;
+			margin-left: 100px;
+		}
+
+		h2{
+			text-decoration: underline;
+		}
+		.persons p{
+			padding-left: 200px;
+			color: #FFFFFF;
+		}
+
+		#border{
+			border: 3px solid #002AFF;
+			background: #002AFF;
+			box-shadow: -6px -9px 1px #000000; 
+
+			margin: 6px;
+		}
+
+		#center{
+			text-align: center;
+		}
+/*textarea {
+resize: none;
+box-shadow: -5px -10px 2px gray; 
+}*/
+</style>
+</head>
+<body>
+	<h1>Tråd-API</h1>
+	<p id="test">
+
+		titel : <input id="title">
+		<br />
+		text : <textarea id="text"></textarea> 
+		<button id="click">Lägg till</button>
+
+
+		<script type="text/x-handlebars-template" id="mall">
+
+			<div>
+				<h2>{{myTitle}}</h2>
+				<h3>Antal poster: {{lengd}}</h3>
+				{{#each data}}
+
+				<div class="persons">
+					<h2 id="center"><a href="threads/{{id}}">{{title}}</a></h2>
+					<div id="border">
+						<p>{{text}}<br/>
+						</div>
+						<img src="cross.png" alt="deleteknapp" id="{{id}}">
+						<div class="show">
+							<input id="Ti{{id}}">
+							<input id="Te{{id}}"></div>
+							<button class="update" id="{{id}}">Updatera</button>
+							
+						</div>
+
+						{{/each}}
+					</script>
+
+					<div id="resultat">
+
+					</div>
+
+					<script>
+						var source   = $("#mall").html();
+						var template = Handlebars.compile(source);
+						var title = document.getElementById('title');
+						var text = document.getElementById('text');	
+
+						$.ajax({
+							url: '/threads',
+//sqlite3
+							success: function(data){
+
+								data = data.threads;	    	
+								var context = {myTitle: "Intressanta personer ", data, lengd: data.length};
+								var html    = template(context);
+								var second  = template(html);
+								resultat.innerHTML = html;
+								var textU = document.getElementById('titleU');
+								var textU = document.getElementById('textU');
+								
+								$('img').on('click', function(){
+									var id = this.id;
+									
+									$.ajax({
+										url: '/threads/' +  id,
+										method: 'DELETE',
+										success: function(data) {
+											console.log("hej då");
+										}
+									});
+								});
+
+
+
+
+								$('#click').on('click', function(){
+// jshint 
+// over the garden wall
+$.ajax({
+	url: '/threads',
+	method: 'POST',
+	data : { title: title.value ,text: text.value},
+	success: function(data)
+	{
+		$.ajax({
+			url: '/threads/'+ data.insertId
+		})
+		.done(function(data){
+			console.log(data.title + " " +  data.text);
+			title.value = "";
+			text.value = "";
+		})
+		$.ajax({
+			url: '/threads',
+
+			success: function(data){
+
+				data = data.threads;	    
+				var context = {myTitle: "Intressanta personer ", data, lengd: data.length};
+				var html    = template(context);
+				var second  = template(html);
+				resultat.innerHTML = html;
+
+			}
+
+		});
+
+	}
+})
+});
+
+
+								$('.update').on('click', function(){
+									var id = this.id;
+									console.log(id);
+									var title = document.getElementById("Ti" + id);
+									var text = document.getElementById("Te" + id);
+									$.ajax({
+										url: 'threads/' + id,
+										method: 'PUT',
+										data: {
+											title : title.value,
+											text : text.value
+										}
+									})
+									.done(function (data){
+										console.log("hej");
+									})
+								});
+
+							}
+						});
+
+</script>	
+</body>
+</html>

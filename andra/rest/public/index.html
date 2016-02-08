@@ -1,0 +1,207 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ajax</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+	
+
+
+	<style>
+	body{
+		height: 600px;
+		width: 900px;
+		background: #7B7A7A;
+	}
+	.persons{
+		border:2px solid black;
+		box-shadow: -6px -9px 1px #000000; 
+		margin: 20px;
+		background: #2FF25D;
+		padding: 10px;
+		font-size: 20px;
+		font-weight: bold;
+
+	}
+	/*.resultat :hover {
+    background-color: yellow;
+}*/
+	#center{
+		 text-align: center;
+	}
+	/*textarea {
+    resize: none;
+    box-shadow: -5px -10px 2px gray; 
+	}*/
+</style>
+</head>
+<body>
+	<h1>Tråd-API</h1>
+	<p id="test">
+
+		titel : <input id="title">
+		<br />
+		text : <input id="text">
+		
+		Up
+		
+		<button id="click" >Circle - fungerar inte för tillfället har bortkommenterat funktionalliteten</button>
+	
+	
+	<div id="resultat">
+		
+<script id="template-1" type="text/x-handlebars-template">
+		<div>
+			<h2>{{myTitle}}</h2>
+
+			<div class="body">
+				<label for="select"><br />
+
+
+			</div>
+			{{#each data}}
+
+			<div class="persons">
+				<h2 id="center">{{Names}}</h2>
+				
+				<p><img src="cross.png"  alt="fisk">{{id}}<br/>
+				City(ikon):{{City}}<br/>
+				Email(ikon): <a href="{{Email}}">{{Email}}</a><br/>
+				Company(ikon):{{Company}}<br/>
+				Country(ikon):{{Country}}<br/>
+				Salery(ikon): {{Salery}}$<br/>
+				{{numbers}}
+				Salery account (ikon): {{Saccount}}</p>
+				<img src="http://www.geognos.com/api/en/countries/flag/{{CountryList}}.png"  alt="fisk">
+
+				
+			</div>
+			{{/each}}
+		</div>
+	</script>
+	</div>
+
+
+
+	<script>
+
+	$('#click').on('click', function(){
+	var key1 = document.getElementById('Name');
+	var key2 = document.getElementById('message');
+	
+	$.ajax({
+		url: "/insertSQL",
+		method: "POST",
+		data : { title: key1.value ,text: key2.value},
+		success: function(data)
+		{console.log(data)}
+	})
+	});
+
+
+
+var source   = $("#template-1").html();
+
+var template = Handlebars.compile(source);
+
+// STARTING AJAX REQUEST SQL DATABASE
+		$.ajax({//början 
+			url: "/dbData",
+
+		})//slut
+
+		.done(function(data){
+			console.log(data);
+			
+			// Random Faces API ajax request -- > ska in i tabellen images
+
+// $.ajax({
+//   url: 'http://api.randomuser.me/?results=500',
+//   dataType: 'json',
+//   success: function(dataAPI){
+//   	// for(var i = 0; i < dataAPI.results.length; i++){
+//    //   console.log(dataAPI.results[i].user.picture.large);
+//    //   console.log(dataAPI.results[i].user.gender);
+//    //   $.ajax({
+//   	//  	url: '/test',
+//   	//  	method: 'post',
+//   	//  	data: {images: dataAPI.results[i].user.picture.large}
+//   	//  })
+//   	// }
+  	
+//   }
+// });
+
+var context = {myTitle: "Intressanta personer ",data };
+var html    = template(context);
+var second  = template(html);
+resultat.innerHTML = html;
+
+
+
+		});
+// ENDING AJAX REQUEST SQL DATABASE
+
+
+
+// var flinkg;
+// $.ajax({
+// 	url: "/threads",
+
+
+
+// })
+// .done(function(data){
+// 	flinkg = data.threads;
+// });
+
+
+//   	$('#click').on('click', function(){
+// 	var key1 = document.getElementById('title');
+
+// 	var key2 = document.getElementById('text');
+// 	$.ajax({
+// 		url: '/threads',
+// 		method: 'POST',
+// 		data : { title: key1.value ,text: key2.value},
+// 		success: function(data)
+// 		{
+			
+// 			$.ajax({
+// 				url: '/threads/'+ data.insertId
+// 			})
+// 			.done(function(data){
+// 				console.log(data.title + " " +  data.text);
+// 				key1.value = "";
+// 				key2.value = "";
+// 			})
+// 		}
+// 	});
+
+
+
+// });
+
+// $.ajax({
+//   url: '/threads/' + ,
+//   type: 'PUT',
+//   data: { title: "gray" ,text: "solidstate"},
+//   success: function(data) {
+//     console.log(data);
+//   }
+// });
+
+// 	$.ajax({
+//   url: '/threads/',
+//   type: 'DELETE',
+//   data: "title=Johnddd&text=Boston",
+//   success: function(data) {
+//     console.log(data);
+//   }
+// });
+
+</script>	
+</body>
+</html>
