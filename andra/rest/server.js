@@ -5,7 +5,7 @@ bodyParser = require('body-parser'),
 fs = require('fs'),
 dbData = [],
 threads,
-playerData;
+// playerData;
 
 //  var threads = [
 //  {
