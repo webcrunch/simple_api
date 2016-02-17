@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 
 
 var get = function(req,res){
-
+	res.json
 }
 
 var getOne = function(req,res){
@@ -28,8 +28,8 @@ var put = function(req,res){
 	
 }
 
-app.use('/', get);
 
+app.get('/update', get);
 // app.get('/', function (req,res){
 // 	res.sendFile('index.html');
 
