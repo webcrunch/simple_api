@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({
 var get = function(req,res){
 
 }
+
+var getOne = function(req,res){
+
+}
+
 var post = function(req,res){
 	
 }
@@ -23,11 +28,16 @@ var put = function(req,res){
 	
 }
 
+app.use('/', get);
 
+// app.get('/', function (req,res){
+// 	res.sendFile('index.html');
+
+// });
 
 app.use(express.static('public'));
-app.use(express.static('images'));
-var server = app.listen(3000, function() {
+
+var server = app.listen(3001, function() {
 	var port = server.address().port;
 	
 
